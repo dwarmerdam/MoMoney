@@ -1,0 +1,63 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+
+# SQLite databases
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Bank data files — NEVER commit real financial data
+*.qfx
+*.ofx
+*.csv
+!tests/**/*.csv
+
+# Personal configuration (contains real account numbers, names, etc.)
+# Copy from config/examples/ and customize for your setup.
+config/accounts.yaml
+config/merchants.yaml
+config/rules.yaml
+config/categories.yaml
+config/parsers.yaml
+config/budget_app_category_map.yaml
+config/*.yaml
+!config/examples/*.yaml
+
+# Environment
+.env
+.env.*
+.venv/
+venv/
+
+# Credentials (service account keys, API keys)
+credentials/
+*.json
+!config/examples/*.json
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Design documents with PII (personal financial details, account numbers)
+# These are working documents for development; see SETUP.md for public docs.
+DESIGN_REVIEW.md
+IMPLEMENTATION_PLAN.md
+category-hierarchy.md
+
+# Data directories
+data/
+import/
+Category-tree.md

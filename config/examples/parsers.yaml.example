@@ -1,0 +1,100 @@
+# Parser format specifications — reference documentation
+# Copy this to config/parsers.yaml.
+#
+# This file documents the field mapping for each bank's export format.
+# The actual parsing logic is in src/parsers/.
+#
+# Amount sign convention (normalized on import):
+#   Expenses: negative (outflow)
+#   Income:   positive (inflow)
+
+parsers:
+  # ==============================================================
+  # WELLS FARGO QFX (SGML format)
+  # ==============================================================
+  wellsfargo_qfx:
+    format: qfx_sgml
+    encoding: utf-8
+    field_map:
+      date: DTPOSTED
+      amount: TRNAMT
+      external_id: FITID
+      description: NAME
+      memo: MEMO
+      txn_type: TRNTYPE
+      check_num: CHECKNUM
+    date_format: "YYYYMMDD"
+
+  # ==============================================================
+  # CAPITAL ONE QFX (XML format)
+  # ==============================================================
+  capone_qfx:
+    format: qfx_xml
+    encoding: utf-8
+    field_map:
+      date: DTPOSTED
+      amount: TRNAMT
+      external_id: FITID
+      description: NAME
+      memo: MEMO
+      txn_type: TRNTYPE
+    date_format: "YYYYMMDD"
+
+  # ==============================================================
+  # AMERICAN EXPRESS QFX (XML format)
+  # ==============================================================
+  amex_qfx:
+    format: qfx_xml
+    encoding: utf-8
+    field_map:
+      date: DTPOSTED
+      amount: TRNAMT
+      external_id: FITID
+      description: NAME
+      memo: MEMO
+      txn_type: TRNTYPE
+    date_format: "YYYYMMDD"
+
+  # ==============================================================
+  # MERCURY CSV
+  # ==============================================================
+  mercury_csv:
+    format: csv
+    encoding: utf-8
+    has_header: true
+    field_map:
+      date: "Date (UTC)"
+      description: "Description"
+      amount: "Amount"
+      status: "Status"
+      source_account: "Source Account"
+      bank_description: "Bank Description"
+      memo: "Note"
+      timestamp: "Timestamp"
+    date_format: "MM-DD-YYYY"
+    # Account routing: map "Source Account" values to account IDs
+    # Configure in accounts.yaml
+    filters:
+      - field: "Status"
+        exclude: ["Failed", "Cancelled"]
+
+  # ==============================================================
+  # BUDGET APP REGISTER CSV (historical import only)
+  # ==============================================================
+  budget_app_register:
+    format: csv
+    encoding: utf-8
+    purpose: historical_import
+    has_header: true
+    field_map:
+      account: "Account"
+      date: "Date"
+      payee: "Payee"
+      category_full: "Category Group/Category"
+      memo: "Memo"
+      outflow: "Outflow"
+      inflow: "Inflow"
+      cleared: "Cleared"
+    date_format: "MM/DD/YYYY"
+    # Account routing: map budget app account names to internal IDs
+    # Configure in accounts.yaml

@@ -1,0 +1,15 @@
+services:
+  momoney:
+    build: .
+    volumes:
+      - ./data:/app/data
+      - ./import:/app/import
+      - ./credentials:/app/credentials:ro
+    environment:
+      - FINANCE_DB_PATH=/app/data/finance.db
+      - FINANCE_WATCH_DIR=/app/import
+      - FINANCE_CREDENTIALS=/app/credentials/service-account.json
+      - FINANCE_GMAIL_USER=${FINANCE_GMAIL_USER:-user@example.com}
+      - FINANCE_SPREADSHEET_ID=${FINANCE_SPREADSHEET_ID:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+    restart: unless-stopped

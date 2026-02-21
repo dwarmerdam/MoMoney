@@ -1,0 +1,125 @@
+# Categorization and processing rules
+# Copy this to config/rules.yaml and customize for your accounts.
+#
+# Rule evaluation order:
+#   1. Transfer detection (highest priority)
+#   2. Merchant auto-match (100% confidence)
+#   3. Amount-based rules (ambiguous merchants with known amounts)
+#   4. Account-based rules (e.g., business account defaults)
+#   5. Merchant high-confidence match (80-99%)
+#   6. Gmail receipt lookup (Apple/Amazon only)
+#   7. Claude AI batch categorization (stub)
+#   8. Flag for manual review
+
+# ================================================================
+# TRANSFER DETECTION PATTERNS
+# ================================================================
+# These patterns identify inter-account transfers in bank data.
+transfers:
+  # Credit card payments
+  - pattern: "CAPITAL ONE MOBILE PMT"
+    from_account: primary-checking
+    to_account: primary-credit
+    type: cc-payment
+
+  - pattern: "AMERICAN EXPRESS ACH PMT"
+    from_account: primary-checking
+    to_account: secondary-credit
+    type: cc-payment
+
+  # Savings transfers
+  - pattern: "ONLINE TRANSFER"
+    from_account: primary-checking
+    to_account: primary-savings
+    type: savings-transfer
+    note: "Verify direction from amount sign"
+
+  # Loan payments
+  - pattern: "CREDIT UNION PAYMENT"
+    from_account: primary-checking
+    to_account: auto-loan
+    type: loan-payment
+
+  # Golden1 interest entries
+  - pattern_fitid_suffix: "INT"
+    account: auto-loan
+    category_id: interest-fees
+    note: "Interest entries have FITID suffix 'INT'"
+
+# ================================================================
+# AMOUNT-BASED RULES (for ambiguous merchants)
+# ================================================================
+amount_rules:
+  # Apple billing disambiguation by amount
+  - merchant_pattern: "APPLE.COM/BILL"
+    rules:
+      - amount_range: [-9.99, -9.99]
+        category_id: cloud-storage
+        confidence: medium
+        note: "iCloud storage"
+      - amount_range: [-22.99, -22.99]
+        category_id: youtube-premium
+        confidence: high
+        note: "YouTube Premium Family plan"
+
+  # Insurance disambiguation
+  - merchant_pattern: "INSURANCE"
+    rules:
+      - amount_range: [-300, -100]
+        category_id: car-insurance
+        confidence: medium
+      - amount_range: [-2000, -300]
+        category_id: home-insurance
+        confidence: medium
+
+# ================================================================
+# ACCOUNT-BASED RULES
+# ================================================================
+account_rules:
+  # Business account default category
+  - account: business-checking
+    default_category: biz-other
+    note: "Business account — default to business category"
+
+# ================================================================
+# TRANSFER CATEGORY MAPPING
+# ================================================================
+# Maps transfer types (from transfer detection) to category IDs.
+# Customize if your categories use different IDs for transfers.
+transfer_categories:
+  cc-payment: xfer-cc-payment
+  savings-transfer: xfer-savings
+  loan-payment: xfer-loan-payment
+  internal-transfer: xfer-internal
+
+# ================================================================
+# RECEIPT PARSING CATEGORIES
+# ================================================================
+# Category IDs suggested to Claude AI when parsing email receipts
+# (Apple/Amazon). Should be leaf categories from your categories.yaml
+# that commonly appear in receipt line items.
+receipt_categories:
+  - cloud-storage
+  - youtube-premium
+  - netflix
+  - hulu
+  - movie-rentals
+  - household-supplies
+  - pet-supplies
+  - electronics-d
+  - gifts-d
+  - groceries
+
+# ================================================================
+# FALLBACK CATEGORY
+# ================================================================
+# Category assigned when no rule matches (manual review queue).
+fallback_category: uncategorized
+
+# ================================================================
+# DEDUP SPECIAL CASES
+# ================================================================
+dedup_notes:
+  - note: >
+      Some banks generate paired entries for each payment (e.g., a CREDIT
+      for the payment and an INT for interest). These are NOT duplicates.

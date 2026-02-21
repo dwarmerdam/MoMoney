@@ -1,0 +1,47 @@
+# Budget app category to MoMoney category mapping
+# Copy this to config/budget_app_category_map.yaml.
+# Only needed for the one-time `momoney import-budget-app` command.
+#
+# Maps old budget app "Category Group: Category" strings to new category IDs.
+# If a budget app category is not listed here, it will be imported as "uncategorized".
+
+# Format: list of mappings
+mappings:
+  # Income
+  - budget_app: "Income: Available this month"
+    category_id: earnings
+
+  - budget_app: "Income: Interest"
+    category_id: interest
+
+  # Monthly Needs
+  - budget_app: "Monthly Needs: Mortgage"
+    category_id: mortgage
+
+  - budget_app: "Monthly Needs: Gas and Electric"
+    category_id: gas-electric
+
+  - budget_app: "Monthly Needs: Internet"
+    category_id: internet-cable
+
+  # True Expenses
+  - budget_app: "True Expenses: Groceries"
+    category_id: groceries
+
+  - budget_app: "True Expenses: Medical"
+    category_id: medical
+
+  - budget_app: "True Expenses: Auto Fuel"
+    category_id: auto-fuel
+
+  # Wants
+  - budget_app: "Wants: Dining Out"
+    category_id: dining-out
+
+  - budget_app: "Wants: Coffee"
+    category_id: coffee-d
+
+  - budget_app: "Wants: Netflix"
+    category_id: netflix
+
+  # Add your own budget app categories here...

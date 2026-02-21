@@ -1,0 +1,129 @@
+accounts:
+  # Checking
+  - id: wf-checking
+    name: "Primary Checking"
+    institution: Wells Fargo
+    account_type: checking
+    is_asset: true
+    is_budget_account: true
+    is_active: true
+    import_format: wellsfargo_qfx
+    qfx_acctid: "1234567890"
+    budget_app_name: "Checking"
+
+  - id: mercury-checking
+    name: "Mercury Checking xx1234"
+    institution: Mercury
+    account_type: checking
+    is_asset: true
+    is_budget_account: true
+    is_active: true
+    import_format: mercury_csv
+    category_filter:
+      default_category: biz-other
+      compatible_prefixes: ["biz-"]
+      compatible_ids:
+        - earnings
+        - cashback
+        - interest
+        - gross-proceeds
+        - unemployment
+        - interest-fees
+
+  # Savings
+  - id: wf-savings
+    name: "Joint Savings"
+    institution: Wells Fargo
+    account_type: savings
+    is_asset: true
+    is_budget_account: true
+    is_active: true
+    import_format: wellsfargo_qfx
+    qfx_acctid: "0987654321"
+    budget_app_name: "Savings"
+    transfer_aliases:
+      - "1234 Joint Savings"
+
+  - id: cap1-savings
+    name: "Capital One Savings"
+    institution: Capital One
+    account_type: savings
+    is_asset: true
+    is_budget_account: true
+    is_active: true
+    import_format: capone_qfx
+    qfx_acctid: "5555"
+
+  - id: mercury-savings
+    name: "Mercury Savings xx5678"
+    institution: Mercury
+    account_type: savings
+    is_asset: true
+    is_budget_account: true
+    is_active: true
+    import_format: mercury_csv
+    category_filter:
+      default_category: biz-other
+      compatible_prefixes: ["biz-"]
+      compatible_ids:
+        - earnings
+        - cashback
+        - interest
+        - gross-proceeds
+        - unemployment
+        - interest-fees
+
+  # Credit cards
+  - id: cap1-credit
+    name: "Capital One"
+    institution: Capital One
+    account_type: credit
+    is_asset: false
+    is_budget_account: true
+    is_active: true
+    import_format: capone_qfx
+    qfx_acctid: "1234"
+    budget_app_name: "Capital One"
+
+  - id: amex-blue
+    name: "Amex Blue Cash"
+    institution: American Express
+    account_type: credit
+    is_asset: false
+    is_budget_account: true
+    is_active: true
+    import_format: amex_qfx
+    qfx_acctid: "TESTACCTID"
+
+  - id: mercury-credit
+    name: "Mercury Credit xx9999"
+    institution: Mercury
+    account_type: credit
+    is_asset: false
+    is_budget_account: true
+    is_active: true
+    import_format: mercury_csv
+    category_filter:
+      default_category: biz-other
+      compatible_prefixes: ["biz-"]
+      compatible_ids:
+        - earnings
+        - cashback
+        - interest
+        - gross-proceeds
+        - unemployment
+        - interest-fees
+
+  # Loans
+  - id: golden1-auto
+    name: "Auto Loan"
+    institution: Golden 1
+    account_type: loan
+    is_asset: false
+    is_budget_account: true
+    is_active: true
+    import_format: golden1_qfx
+    qfx_acctid: "9999999=1"
+    interest_detection:
+      fitid_suffix: "INT"
+      category_id: interest-fees

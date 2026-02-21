@@ -1,0 +1,64 @@
+parsers:
+  wellsfargo_qfx:
+    format: qfx_sgml
+    encoding: utf-8
+    field_map:
+      date: DTPOSTED
+      amount: TRNAMT
+      external_id: FITID
+      description: NAME
+      memo: MEMO
+      txn_type: TRNTYPE
+      check_num: CHECKNUM
+    date_format: "YYYYMMDD"
+
+  capone_qfx:
+    format: qfx_xml
+    encoding: utf-8
+    field_map:
+      date: DTPOSTED
+      amount: TRNAMT
+      external_id: FITID
+      description: NAME
+      memo: MEMO
+      txn_type: TRNTYPE
+    date_format: "YYYYMMDD"
+
+  amex_qfx:
+    format: qfx_xml
+    encoding: utf-8
+    field_map:
+      date: DTPOSTED
+      amount: TRNAMT
+      external_id: FITID
+      description: NAME
+      memo: MEMO
+      txn_type: TRNTYPE
+    date_format: "YYYYMMDD"
+
+  golden1_qfx:
+    format: qfx_sgml
+    encoding: utf-8
+    field_map:
+      date: DTPOSTED
+      amount: TRNAMT
+      external_id: FITID
+      description: NAME
+      memo: MEMO
+      txn_type: TRNTYPE
+    date_format: "YYYYMMDD"
+
+  mercury_csv:
+    format: csv
+    encoding: utf-8
+    has_header: true
+    field_map:
+      date: "Date (UTC)"
+      description: "Description"
+      amount: "Amount"
+      status: "Status"
+      source_account: "Source Account"
+      bank_description: "Bank Description"
+      memo: "Note"
+      timestamp: "Timestamp"
+    date_format: "MM-DD-YYYY"

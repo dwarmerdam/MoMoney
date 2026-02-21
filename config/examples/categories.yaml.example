@@ -1,0 +1,162 @@
+# Category hierarchy for MoMoney
+# Copy this to config/categories.yaml and customize for your budget.
+#
+# Convention:
+#   - id: opaque slug derived from category name
+#   - is_leaf: only leaf categories can receive allocations
+#   - is_income / is_transfer: controls reporting exclusions
+
+tree:
+  # ================================================================
+  # INCOME
+  # ================================================================
+  - id: income
+    name: Income
+    is_income: true
+    is_leaf: false
+    children:
+      - id: income-sources
+        name: All Income Sources
+        is_leaf: false
+        children:
+          - id: interest
+            name: Interest
+          - id: cashback
+            name: Cashback
+          - id: gross-proceeds
+            name: Gross Proceeds
+          - id: earnings
+            name: Earnings
+
+  # ================================================================
+  # TRANSFERS (excluded from income/expense reports)
+  # ================================================================
+  - id: transfers
+    name: Transfers
+    is_transfer: true
+    is_leaf: false
+    children:
+      - id: xfer-cc-payment
+        name: Credit Card Payment
+      - id: xfer-savings
+        name: Savings Transfer
+      - id: xfer-loan-payment
+        name: Loan Payment
+      - id: xfer-internal
+        name: Internal Transfer
+
+  # ================================================================
+  # UNCATEGORIZED (manual review queue)
+  # ================================================================
+  - id: uncategorized
+    name: Uncategorized
+
+  # ================================================================
+  # EXPENSES — Customize these for your budget
+  # ================================================================
+
+  # Monthly Needs
+  - id: monthly-needs
+    name: Monthly Needs
+    is_leaf: false
+    children:
+      - id: mortgage
+        name: Mortgage
+      - id: utilities
+        name: Utilities
+        is_leaf: false
+        children:
+          - id: gas-electric
+            name: Gas and Electric
+          - id: water-sewer
+            name: Water and Sewer
+          - id: internet-cable
+            name: Internet and Cable
+          - id: mobile-phone
+            name: Mobile Phone
+          - id: cloud-storage
+            name: Cloud Storage
+      - id: insurance
+        name: Insurance
+        is_leaf: false
+        children:
+          - id: car-insurance
+            name: Car Insurance
+          - id: home-insurance
+            name: Home Insurance
+          - id: medical-insurance
+            name: Medical Insurance
+
+  # True Expenses
+  - id: true-expenses
+    name: True Expenses
+    is_leaf: false
+    children:
+      - id: groceries
+        name: Groceries
+      - id: medical
+        name: Medical
+      - id: auto-fuel
+        name: Auto Fuel
+      - id: auto-maintenance
+        name: Auto Maintenance
+      - id: household-supplies
+        name: Household Supplies
+      - id: home-repairs
+        name: Home Repairs
+      - id: pet-supplies
+        name: Pet Supplies
+      - id: interest-fees
+        name: Interest & Fees
+
+  # Wants
+  - id: wants
+    name: Wants
+    is_leaf: false
+    children:
+      - id: dining-out
+        name: Dining Out
+      - id: coffee-d
+        name: Coffee
+      - id: meal-delivery
+        name: Meal Delivery
+      - id: snacks-beer
+        name: Snacks & Beer
+      - id: netflix
+        name: Netflix
+      - id: hulu
+        name: Hulu
+      - id: youtube-premium
+        name: YouTube Premium
+      - id: peacock
+        name: Peacock
+      - id: amazon-prime
+        name: Amazon Prime
+      - id: movie-rentals
+        name: Movie Rentals
+
+  # Personal / Business
+  - id: personal
+    name: Personal
+    is_leaf: false
+    children:
+      - id: fitness-d
+        name: Fitness
+      - id: gifts-d
+        name: Gifts
+      - id: electronics-d
+        name: Electronics
+
+  # Business (if applicable)
+  - id: business
+    name: Business
+    is_leaf: false
+    children:
+      - id: biz-saas
+        name: SaaS Subscriptions
+      - id: biz-infrastructure
+        name: Infrastructure
+      - id: biz-participant-comp
+        name: Participant Compensation
+      - id: biz-other
+        name: Other Business

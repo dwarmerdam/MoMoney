@@ -1,0 +1,132 @@
+transfers:
+  # Credit card payments
+  - pattern: "CAPITAL ONE MOBILE PMT"
+    from_account: wf-checking
+    to_account: cap1-credit
+    type: cc-payment
+
+  - pattern: "AMEX ACH PMT"
+    from_account: wf-checking
+    to_account: amex-blue
+    type: cc-payment
+
+  # Internal Mercury transfers
+  - pattern: "IO AUTOPAY"
+    from_account: mercury-checking
+    to_account: mercury-credit
+    type: internal-transfer
+
+  # Golden1 interest detection (FITID suffix)
+  - pattern_fitid_suffix: "INT"
+    account: golden1-auto
+    category_id: interest-fees
+
+amount_rules:
+  # Apple billing disambiguation by amount
+  - merchant_pattern: "APPLE.COM/BILL"
+    rules:
+      - amount_range: [-0.99, -0.99]
+        category_id: movie-rentals
+        confidence: medium
+        note: "SD movie rental"
+      - amount_range: [-3.99, -3.99]
+        category_id: movie-rentals
+        confidence: medium
+        note: "HD movie rental"
+      - amount_range: [-7.99, -7.99]
+        category_id: peacock
+        confidence: high
+        note: "Peacock streaming"
+      - amount_range: [-9.99, -9.99]
+        category_id: cloud-storage
+        confidence: medium
+        note: "iCloud storage"
+      - amount_range: [-17.99, -17.99]
+        category_id: hulu
+        confidence: high
+        note: "Hulu + Live TV"
+      - amount_range: [-22.99, -22.99]
+        category_id: youtube-premium
+        confidence: high
+        note: "YouTube Premium Family"
+
+  # Insurance disambiguation by amount
+  - merchant_pattern: "CSAA INSURANCE GROUP"
+    rules:
+      - amount_range: [-300, -100]
+        category_id: car-insurance
+        confidence: medium
+      - amount_range: [-2000, -300.01]
+        category_id: home-insurance
+        confidence: medium
+
+  # Whole Foods disambiguation by amount
+  - merchant_pattern: "WHOLEFDS"
+    rules:
+      - amount_range: [-30, 0]
+        category_id: snacks-beer
+        confidence: medium
+        note: "Small purchase = snacks"
+      - amount_range: [-500, -30.01]
+        category_id: groceries
+        confidence: medium
+        note: "Large purchase = groceries"
+
+  # Amazon whole-dollar on Mercury = participant compensation
+  - merchant_pattern: "AMAZON"
+    accounts:
+      - mercury-checking
+      - mercury-savings
+      - mercury-credit
+    rules:
+      - whole_dollar: true
+        category_id: biz-participant-comp
+        confidence: high
+        note: "Amazon whole-dollar on business account"
+
+  # AMZN variant for same rule
+  - merchant_pattern: "AMZN"
+    accounts:
+      - mercury-checking
+      - mercury-savings
+      - mercury-credit
+    rules:
+      - whole_dollar: true
+        category_id: biz-participant-comp
+        confidence: high
+        note: "AMZN whole-dollar on business account"
+
+account_rules:
+  # Mercury business accounts default to biz-other
+  - account: mercury-checking
+    default_category: biz-other
+
+  - account: mercury-savings
+    default_category: biz-other
+
+  - account: mercury-credit
+    default_category: biz-other
+
+  # Golden1 auto loan: non-transfer entries are interest/fees
+  - account: golden1-auto
+    non_transfer_category: interest-fees
+
+transfer_categories:
+  cc-payment: xfer-cc-payment
+  savings-transfer: xfer-savings
+  loan-payment: xfer-loan-payment
+  internal-transfer: xfer-internal
+
+receipt_categories:
+  - cloud-storage
+  - youtube-premium
+  - netflix
+  - hulu
+  - movie-rentals
+  - household-supplies
+  - pet-supplies
+  - electronics-d
+  - gifts-d
+  - groceries
+
+fallback_category: uncategorized

@@ -1,0 +1,100 @@
+# Merchant-to-category mapping rules
+# Copy this to config/merchants.yaml and customize for your spending patterns.
+#
+# Two tiers:
+#   auto: 100% confidence matches (exact or contains)
+#   high: 80-99% confidence matches (broader patterns)
+#
+# Match types:
+#   exact:    full string match (case-insensitive)
+#   contains: substring match (case-insensitive)
+#   starts:   prefix match (case-insensitive)
+
+auto:
+  # --- Groceries & Food ---
+  - match: contains
+    pattern: "TRADER JOE"
+    category_id: groceries
+    merchant_name: Trader Joe's
+
+  - match: contains
+    pattern: "SAFEWAY"
+    category_id: groceries
+    merchant_name: Safeway
+
+  # --- Coffee ---
+  - match: contains
+    pattern: "STARBUCKS"
+    category_id: coffee-d
+    merchant_name: Starbucks
+
+  - match: contains
+    pattern: "PHILZ COFFEE"
+    category_id: coffee-d
+    merchant_name: Philz Coffee
+
+  # --- Meal Delivery ---
+  - match: contains
+    pattern: "DOORDASH"
+    category_id: meal-delivery
+    merchant_name: DoorDash
+
+  - match: contains
+    pattern: "UBER EATS"
+    category_id: meal-delivery
+    merchant_name: Uber Eats
+
+  # --- Streaming ---
+  - match: contains
+    pattern: "Netflix.com"
+    category_id: netflix
+
+  - match: contains
+    pattern: "HULU"
+    category_id: hulu
+
+  # --- Utilities ---
+  - match: contains
+    pattern: "COMCAST"
+    category_id: internet-cable
+
+  # --- Pet ---
+  - match: contains
+    pattern: "CHEWY.COM"
+    category_id: pet-supplies
+
+  # --- Income ---
+  - match: contains
+    pattern: "INTEREST PAYMENT"
+    category_id: interest
+    is_income: true
+
+  - match: contains
+    pattern: "CASHBACK"
+    category_id: cashback
+    is_income: true
+
+  - match: contains
+    pattern: "PAYROLL"
+    category_id: earnings
+    is_income: true
+
+  - match: contains
+    pattern: "DIRECT DEP"
+    category_id: earnings
+    is_income: true
+
+# High-confidence matches (80-99%, may need manual review)
+high:
+  - match: contains
+    pattern: "COSTCO"
+    category_id: groceries
+
+  - match: contains
+    pattern: "TARGET"
+    category_id: household-supplies
+
+  - match: contains
+    pattern: "AMAZON"
+    category_id: household-supplies
+    note: "Amazon is ambiguous — could be many categories"

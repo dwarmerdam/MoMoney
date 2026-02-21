@@ -1,0 +1,169 @@
+auto:
+  # Groceries & Food
+  - match: contains
+    pattern: "INSTACART"
+    category_id: groceries
+    merchant_name: Instacart
+
+  # Coffee
+  - match: contains
+    pattern: "STARBUCKS"
+    category_id: coffee-d
+    merchant_name: Starbucks
+
+  - match: contains
+    pattern: "PEETS COFFEE"
+    category_id: coffee-d
+    merchant_name: Peet's Coffee
+
+  # Meal Delivery
+  - match: contains
+    pattern: "DOORDASH"
+    category_id: meal-delivery
+    merchant_name: DoorDash
+
+  # Streaming
+  - match: contains
+    pattern: "Netflix.com"
+    category_id: netflix
+    merchant_name: Netflix
+
+  - match: contains
+    pattern: "Spotify"
+    category_id: music-d
+    merchant_name: Spotify
+
+  # Mortgage
+  - match: contains
+    pattern: "WF HOME MTG"
+    category_id: mortgage
+    merchant_name: WF Home Mortgage
+
+  # Income
+  - match: exact
+    pattern: "INTEREST PAYMENT"
+    category_id: interest
+    is_income: true
+
+  - match: contains
+    pattern: "PAYROLL"
+    category_id: earnings
+    is_income: true
+    merchant_name: Employer Payroll
+
+  - match: contains
+    pattern: "Cashback"
+    category_id: cashback
+    is_income: true
+
+  # Insurance
+  - match: contains
+    pattern: "GEICO"
+    category_id: car-insurance
+    merchant_name: GEICO
+
+  # Utilities
+  - match: contains
+    pattern: "PGANDE"
+    category_id: gas-electric
+    merchant_name: PG&E
+
+  - match: contains
+    pattern: "PG&E"
+    category_id: gas-electric
+    merchant_name: PG&E
+
+  # Pet
+  - match: contains
+    pattern: "CHEWY.COM"
+    category_id: pet-supplies
+    merchant_name: Chewy
+
+  # Business SaaS
+  - match: contains
+    pattern: "ANTHROPIC"
+    category_id: biz-saas
+    merchant_name: Anthropic
+
+  - match: contains
+    pattern: "GITHUB"
+    category_id: biz-saas
+    merchant_name: GitHub
+
+  - match: contains
+    pattern: "DIGITALOCEAN"
+    category_id: biz-infrastructure
+    merchant_name: DigitalOcean
+
+  # Auto
+  - match: contains
+    pattern: "SHELL OIL"
+    category_id: auto-fuel
+    merchant_name: Shell
+
+  # Medical
+  - match: contains
+    pattern: "KAISER"
+    category_id: medical
+    merchant_name: Kaiser
+
+  # Rideshare
+  - match: exact
+    pattern: "Lyft"
+    category_id: weekend-lyft
+    merchant_name: Lyft
+
+  # Vet
+  - match: contains
+    pattern: "Generic Veterinary"
+    category_id: vet-care
+    merchant_name: Generic Veterinary Clinic
+
+high_confidence:
+  - match: contains
+    pattern: "PHILZ COFFEE"
+    category_id: coffee-d
+    merchant_name: Philz Coffee
+    consistency: 90
+
+  - match: contains
+    pattern: "TRADER JOE"
+    category_id: groceries
+    merchant_name: Trader Joe's
+    consistency: 85
+
+  - match: contains
+    pattern: "COSTCO"
+    category_id: groceries
+    merchant_name: Costco
+    consistency: 83
+
+  - match: contains
+    pattern: "SAFEWAY"
+    category_id: groceries
+    merchant_name: Safeway
+    consistency: 90
+
+  - match: contains
+    pattern: "TARGET"
+    category_id: household-supplies
+    merchant_name: Target
+    consistency: 85
+
+  - match: contains
+    pattern: "WALGREENS"
+    category_id: household-supplies
+    merchant_name: Walgreens
+    consistency: 85
+
+  - match: contains
+    pattern: "DOLLAR TREE"
+    category_id: household-personal
+    merchant_name: Dollar Tree
+    consistency: 85
+
+  - match: contains
+    pattern: "AAA INSURANCE"
+    category_id: car-insurance
+    merchant_name: AAA Insurance
+    consistency: 85

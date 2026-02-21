@@ -1,0 +1,108 @@
+# Account definitions for MoMoney
+# Copy this to config/accounts.yaml and replace with your real account details.
+#
+# Active accounts: customize to match your banks and accounts.
+# QFX-capable accounts use FITID for strong dedup.
+# CSV-only accounts use Timestamp or other unique fields.
+#
+# To find your qfx_acctid: open a downloaded QFX file in a text editor
+# and search for <ACCTID>. The value after that tag is your account ID.
+
+accounts:
+  # ============================================================
+  # CHECKING ACCOUNTS
+  # ============================================================
+  - id: primary-checking
+    name: "Primary Checking"
+    institution: Your Bank
+    account_type: checking
+    is_asset: true
+    is_budget_account: true
+    is_active: true
+    import_format: wellsfargo_qfx    # or: capone_qfx, amex_qfx, golden1_qfx, mercury_csv
+    qfx_org: BANKORG
+    qfx_fid: "1234"
+    qfx_acctid: "1234567890"         # REPLACE with your real ACCTID
+    qfx_accttype: CHECKING
+    date_format: "YYYYMMDD"
+
+  - id: business-checking
+    name: "Business Checking"
+    institution: Mercury
+    account_type: checking
+    is_asset: true
+    is_budget_account: true
+    is_active: true
+    import_format: mercury_csv
+    date_format: "MM-DD-YYYY"
+    # Optional: restrict merchant matches to business-compatible categories.
+    # When a merchant match resolves to a non-compatible category, the
+    # pipeline overrides it to default_category instead.
+    category_filter:
+      default_category: biz-other        # fallback for incompatible matches
+      compatible_prefixes: ["biz-"]      # categories starting with these pass through
+      compatible_ids:                    # specific IDs that also pass through
+        - earnings
+        - cashback
+        - interest
+        - gross-proceeds
+        - interest-fees
+
+  # ============================================================
+  # SAVINGS ACCOUNTS
+  # ============================================================
+  - id: primary-savings
+    name: "Joint Savings"
+    institution: Your Bank
+    account_type: savings
+    is_asset: true
+    is_budget_account: true
+    is_active: true
+    import_format: wellsfargo_qfx
+    qfx_acctid: "0987654321"         # REPLACE with your real ACCTID
+    date_format: "YYYYMMDD"
+
+  # ============================================================
+  # CREDIT CARDS
+  # ============================================================
+  - id: primary-credit
+    name: "Primary Credit Card"
+    institution: Capital One
+    account_type: credit
+    is_asset: false
+    is_budget_account: true
+    is_active: true
+    import_format: capone_qfx
+    qfx_acctid: "1234"               # REPLACE with your real ACCTID
+    date_format: "YYYYMMDD"
+
+  - id: secondary-credit
+    name: "Secondary Credit Card"
+    institution: American Express
+    account_type: credit
+    is_asset: false
+    is_budget_account: true
+    is_active: true
+    import_format: amex_qfx
+    qfx_acctid: "YOURACCTID"         # REPLACE with your real ACCTID
+    date_format: "YYYYMMDD"
+
+  # ============================================================
+  # LOANS
+  # ============================================================
+  - id: auto-loan
+    name: "Auto Loan"
+    institution: Your Credit Union
+    account_type: loan
+    is_asset: false
+    is_budget_account: true
+    is_active: true
+    import_format: golden1_qfx
+    qfx_acctid: "9999999=1"          # REPLACE with your real ACCTID
+    qfx_accttype: CREDITLINE
+    date_format: "YYYYMMDD"
+    # Optional: detect interest entries by FITID suffix.
+    # Some banks (e.g., Golden1) append "INT" to the FITID for interest charges.
+    interest_detection:
+      fitid_suffix: "INT"
+      category_id: interest-fees

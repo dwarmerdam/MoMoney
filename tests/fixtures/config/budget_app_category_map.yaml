@@ -1,0 +1,46 @@
+# Test fixture: budget app category mapping
+# Uses grouped structure expected by Config.budget_app_category_map
+
+Income:
+  - budget_app: "Income: Available this month"
+    category_id: earnings
+  - budget_app: "Income: Interest"
+    category_id: interest
+
+Monthly Needs:
+  - budget_app: "Monthly Needs (Shared): Mortgage"
+    category_id: mortgage
+  - budget_app: "Monthly Needs (Shared): Gas and Electric"
+    category_id: gas-electric
+  - budget_app: "Monthly Needs (Shared): Car Insurance"
+    category_id: car-insurance
+  - budget_app: "Monthly Needs (Shared): Internet"
+    category_id: internet-cable
+
+True Expenses:
+  - budget_app: "True Expenses (Shared): Groceries"
+    category_id: groceries
+  - budget_app: "True Expenses (Shared): Medical"
+    category_id: medical
+  - budget_app: "True Expenses (Shared): Auto Fuel"
+    category_id: auto-fuel
+
+Wants:
+  - budget_app: "Wants (Shared): Dining Out"
+    category_id: dining-out
+  - budget_app: "Wants (Shared): Coffee"
+    category_id: coffee-d
+  - budget_app: "Wants (Shared): Netflix"
+    category_id: netflix
+
+Personal:
+  - budget_app: "Personal: Fitness"
+    category_id: fitness-d
+  - budget_app: "Personal: Gifts"
+    category_id: gifts-d
+
+Business:
+  - budget_app: "Business: SaaS"
+    category_id: biz-saas
+  - budget_app: "Business: Infrastructure"
+    category_id: biz-infrastructure
