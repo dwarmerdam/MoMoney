@@ -16,7 +16,7 @@ class TestNormalizeDescription:
         assert normalize_description("Philz Coffee") == "PHILZ COFFEE"
 
     def test_strip_long_numbers(self):
-        assert normalize_description("VENMO PAYMENT 1036048383186") == "VENMO PAYMENT"
+        assert normalize_description("VENMO PAYMENT 1234567890123") == "VENMO PAYMENT"
 
     def test_strip_hash_refs(self):
         assert normalize_description("CHECK #1234") == "CHECK"
@@ -28,9 +28,9 @@ class TestNormalizeDescription:
         assert normalize_description("MORTGAGE   MTG   PAYMENTS") == "MORTGAGE MTG PAYMENTS"
 
     def test_combined(self):
-        result = normalize_description("ZELLE TO SAMPLE POOL SERVICES ON 01/23 REF # ABC0DEF1GH2I")
+        result = normalize_description("ZELLE TO MOWER SERVICES ON 01/23 REF # REF123456789")
         assert "ZELLE" in result
-        assert "SAMPLE" in result
+        assert "MOWER" in result
         # hash ref # pattern should be stripped
         assert "#" not in result
 
