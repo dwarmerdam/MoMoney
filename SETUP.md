@@ -118,7 +118,37 @@ impersonates your Google Workspace user to read receipts.
 domain-wide delegation on the service account. It's available by default. You
 only need to copy the Client ID and authorize it in the Workspace Admin Console.
 
-### 2.5 Note Your Gmail Address
+### 2.5 Why Domain-Wide Delegation (Not OAuth)
+
+Google offers two main approaches for server-side API access: per-user OAuth
+2.0 and Domain-Wide Delegation (DWD) with a service account. MoMoney uses DWD
+for these reasons:
+
+1. **No interactive login possible.** The app runs as a headless daemon inside
+   a Docker container on a NAS. Per-user OAuth requires a browser-based consent
+   flow and periodic re-authentication when tokens expire. There is no browser,
+   no UI, and no human present to click "Authorize." DWD with a service account
+   is Google's documented pattern for unattended server-side automation.
+
+2. **Single-user blast radius.** Google's guidance to "use DWD only for
+   critical business cases" is directed at organizations where a service
+   account could impersonate any of thousands of employees. In a personal
+   Google Workspace domain, the blast radius is one person — you. The service
+   account can only impersonate the single email address configured in
+   `FINANCE_GMAIL_USER`.
+
+3. **Minimum required scopes.** The service account is authorized for
+   `gmail.readonly`, `spreadsheets`, and `drive` only. It cannot send email,
+   modify calendar events, or access any other Workspace data.
+
+> **Important limitation:** DWD requires a Google Workspace account and does
+> not work with personal @gmail.com accounts. If using personal Gmail, you
+> would need to adapt Gmail authentication to use OAuth 2.0 with offline
+> refresh tokens, or use a third-party Gmail integration. Note that Sheets
+> access via service account sharing works with any Google account — only the
+> Gmail receipt lookup feature requires Workspace.
+
+### 2.6 Note Your Gmail Address
 
 The `FINANCE_GMAIL_USER` environment variable should be set to the Google
 Workspace email address the service account will impersonate for receipt

@@ -58,6 +58,7 @@ own deployment.
 - Google Sheets API access limited to designated spreadsheet
 - Service account follows principle of least privilege
 - Domain-wide delegation scoped to minimum required scopes
+- Domain-wide delegation [chosen over per-user OAuth](SETUP.md#25-why-domain-wide-delegation-not-oauth) because the app runs as a headless daemon with no browser for interactive consent
 
 ### 3. Code Security
 
@@ -119,7 +120,10 @@ All external dependencies are from trusted sources:
 | `pyyaml` | YAML parsing | Uses `safe_load()` only |
 
 **Dependency Management:**
-- Versions pinned in `pyproject.toml` for reproducible builds
+- `pyproject.toml` specifies minimum version ranges (e.g., `>=3.0.0`) for broad
+  compatibility. For production deployments requiring fully reproducible builds,
+  generate a pinned lock file via `pip freeze > requirements.txt` after a
+  successful install and install from that instead
 - No known CVEs in current dependency versions
 - Regular updates recommended via `pip list --outdated`
 
