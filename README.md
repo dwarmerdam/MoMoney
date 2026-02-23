@@ -311,7 +311,9 @@ configuration, and refund handling.
 | `pyyaml` | YAML configuration parsing |
 | `python-dateutil` | Date parsing utilities |
 
-Requires Python 3.11+.
+Requires Python 3.11+. Dependencies use minimum version ranges (`>=`) for broad
+compatibility; for reproducible production builds, generate a pinned lock file
+with `pip freeze > requirements.txt` after a successful install.
 
 ---
 
