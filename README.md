@@ -3,8 +3,7 @@
 > **Template Repository** — Click **"Use this template"** on GitHub to create
 > your own private copy. Do not fork or clone this repo directly.
 
-A self-hosted personal finance tracker with automatic bank transaction imports,
-intelligent categorization, and a Google Sheets UI.
+Self-hosted personal finance tracker. Import bank transactions, auto-categorize, push to Google Sheets.
 
 ---
 
