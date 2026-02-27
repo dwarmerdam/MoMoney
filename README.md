@@ -293,7 +293,7 @@ cp config/examples/*.example config/
 pytest
 ```
 
-The test suite includes 800+ tests covering all modules: categorization
+The test suite includes 820+ tests covering all modules: categorization
 pipeline, database operations, file parsing, deduplication, Google Sheets
 integration, Gmail receipt lookup, file watcher, CLI commands, Docker
 configuration, and refund handling.

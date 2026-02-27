@@ -6,6 +6,7 @@ WORKDIR /app
 COPY pyproject.toml .
 COPY src/ src/
 COPY scripts/ scripts/
+# Only config/examples/ is tracked in git; real configs are gitignored
 COPY config/ config/
 
 # Install package and dependencies

@@ -1,0 +1,24 @@
+# Auto-detect text files and normalize line endings
+* text=auto
+
+# Python
+*.py text diff=python
+
+# Shell scripts
+*.sh text eol=lf
+
+# YAML
+*.yaml text
+*.yml text
+
+# SQL
+*.sql text
+
+# Markdown
+*.md text
+
+# Docker
+Dockerfile text
+
+# Exclude vendored/generated files from language stats
+tests/ linguist-vendored
